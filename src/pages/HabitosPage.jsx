@@ -1,47 +1,29 @@
 import styled from 'styled-components'
-import perfil from '../assets/perfil.png'
+import { CampoDeHabitos } from '../components/CampoHabitos'
+import HabitoSelecionado from '../components/HabitoSelecionado'
+import MainHeader from '../components/MainHeader'
+import MainFooter from '../components/MainFooter'
 
-export default function HabitosPage() {
+export function HabitosPage() {
   return (
     <SCContainerHabitos>
-      <SCMainHeader className="main-header">
-        <h2>TrackIt</h2>
-        <img src={perfil} alt="foto de perfil" />
-      </SCMainHeader>
+      <MainHeader />
 
       <HeaderConteudo>
         <h2>Meus hábitos</h2>
         <button>+</button>
       </HeaderConteudo>
 
-      <div className="camboHabitos">
-        <input type="text" />
-        <div>
-          <button>d</button>
-          <button>s</button>
-          <button>t</button>
-          <button>q</button>
-          <button>q</button>
-          <button>s</button>
-          <button>s</button>
-        </div>
-        <div>
-          <button>Cancelar</button>
-          <button>Salvar</button>
-        </div>
-        <p>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
-        </p>
-      </div>
-      <footer>
-        <a href=""></a>
-        <a href="">
-          Hoje
-          <img src="" alt="" />
-        </a>
-        <a href=""></a>
-      </footer>
+      <HabitoSelecionado />
+      <HabitoSelecionado />
+      <HabitoSelecionado />
+      {/* <CampoDeHabitos /> */}
+
+      <Paragrafo>
+        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+        começar a trackear!
+      </Paragrafo>
+      <MainFooter />
     </SCContainerHabitos>
   )
 }
@@ -54,34 +36,11 @@ const SCContainerHabitos = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-color: #e5e5e5;
+  padding: 0 20px;
 `
 
-const SCMainHeader = styled.header`
-  font-family: 'Playball', cursive;
-  position: fixed;
-  width: 100%;
-  height: 70px;
-  left: 0px;
-  top: 0px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-
-  background: #126ba5;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-
-  h2 {
-    font-size: 40px;
-    /* identical to box height */
-    color: #ffffff;
-  }
-
-  img {
-    border-radius: 98.5px;
-  }
-`
+//
 
 const HeaderConteudo = styled.header`
   margin-top: 30px;
@@ -91,8 +50,7 @@ const HeaderConteudo = styled.header`
   width: 100%;
 
   h2 {
-    font-size: 22.976px;
-    /* identical to box height */
+    font-size: 23px;
 
     color: #126ba5;
   }
@@ -112,3 +70,12 @@ const HeaderConteudo = styled.header`
     color: #ffffff;
   }
 `
+
+const Paragrafo = styled.p`
+  margin-top: 50px;
+  font-size: 18px;
+  padding: 0 18px;
+  color: #666666;
+`
+
+export default SCContainerHabitos

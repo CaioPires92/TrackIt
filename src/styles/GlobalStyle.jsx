@@ -6,6 +6,8 @@ body {
   font-family: 'Lexend Deca', sans-serif;
   width: 100vw;
   height: 100vh;
+
+  overflow-x: hidden;
 }
 
 `
