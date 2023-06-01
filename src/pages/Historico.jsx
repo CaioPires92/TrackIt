@@ -1,14 +1,14 @@
 import MainHeader from '../components/MainHeader'
 import SCContainerHabitos from './HabitosPage'
-import SCContainerLogin from './LoginPage'
 import styled from 'styled-components'
 import MainFooter from '../components/MainFooter'
+import { SCContainerSyle } from './styles/styles'
 
 export default function Historico() {
   return (
     <>
       <MainHeader />
-      <SCContainerLogin>
+      <SCContainerSyle>
         <SCContainerHabitos>
           <Header>
             <h2>Historico</h2>
@@ -16,7 +16,7 @@ export default function Historico() {
           </Header>
         </SCContainerHabitos>
         <MainFooter />
-      </SCContainerLogin>
+      </SCContainerSyle>
     </>
   )
 }

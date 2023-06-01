@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 // eslint-disable-next-line react/prop-types
-export default function Button({ value }) {
-  return <ScButton>{value}</ScButton>
+export default function Button({ children }) {
+  return <ScButton>{children}</ScButton>
 }
 
 const ScButton = styled.button`

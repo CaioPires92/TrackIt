@@ -1,20 +1,28 @@
 import styled from 'styled-components'
 
 // eslint-disable-next-line react/prop-types
-export default function Input({ value, type }) {
+export default function Input({ value, type, placeholder, id, onChange }) {
   return (
     <>
-      <SCContainerInput action="">
+      <SCContainerInput>
         <SCInput>
           <label htmlFor={value}></label>
-          <input type={type} name={value} id={value} placeholder={value} />
+          <input
+            required
+            type={type}
+            name={value}
+            id={id}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          />
         </SCInput>
       </SCContainerInput>
     </>
   )
 }
 
-const SCContainerInput = styled.form`
+const SCContainerInput = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

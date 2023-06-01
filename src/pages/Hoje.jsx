@@ -1,16 +1,15 @@
 import MainHeader from '../components/MainHeader'
-import SCContainerHabitos from './HabitosPage'
-import SCContainerLogin from './LoginPage'
 import styled from 'styled-components'
 import { ImCheckmark } from 'react-icons/im'
 import MainFooter from '../components/MainFooter'
+import { SCContainerSyle, SCContainerHojeHabitos } from './styles/styles'
 
 export default function Hoje() {
   return (
     <>
       <MainHeader />
-      <SCContainerLogin>
-        <SCContainerHabitos>
+      <SCContainerSyle>
+        <SCContainerHojeHabitos>
           <Header>
             <h2>Segunda, 17/05</h2>
             <p>Nenhum hábito concluído ainda</p>
@@ -43,9 +42,9 @@ export default function Hoje() {
               <StyledReactIcon />
             </div>
           </ContainerConteudo>
-        </SCContainerHabitos>
+        </SCContainerHojeHabitos>
         <MainFooter />
-      </SCContainerLogin>
+      </SCContainerSyle>
     </>
   )
 }

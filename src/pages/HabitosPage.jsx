@@ -1,12 +1,13 @@
 import styled from 'styled-components'
-import { CampoDeHabitos } from '../components/CampoHabitos'
+// import { CampoDeHabitos } from '../components/CampoHabitos'
 import HabitoSelecionado from '../components/HabitoSelecionado'
 import MainHeader from '../components/MainHeader'
 import MainFooter from '../components/MainFooter'
+import { SCContainerHojeHabitos } from './styles/styles'
 
-export function HabitosPage() {
+export default function HabitosPage() {
   return (
-    <SCContainerHabitos>
+    <SCContainerHojeHabitos>
       <MainHeader />
 
       <HeaderConteudo>
@@ -24,23 +25,9 @@ export function HabitosPage() {
         começar a trackear!
       </Paragrafo>
       <MainFooter />
-    </SCContainerHabitos>
+    </SCContainerHojeHabitos>
   )
 }
-
-const SCContainerHabitos = styled.div`
-  margin-top: 70px;
-  margin-inline: auto;
-  width: 375px;
-  height: 800px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: #e5e5e5;
-  padding: 0 20px;
-`
-
-//
 
 const HeaderConteudo = styled.header`
   margin-top: 30px;
@@ -77,5 +64,3 @@ const Paragrafo = styled.p`
   padding: 0 18px;
   color: #666666;
 `
-
-export default SCContainerHabitos

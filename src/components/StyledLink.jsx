@@ -1,11 +1,12 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 // eslint-disable-next-line react/prop-types
 export default function FooterLink({ children }) {
-  return <SCFooterLink> {children}</SCFooterLink>
+  return <StyledLink to={'/cadastro'}>{children}</StyledLink>
 }
 
-const SCFooterLink = styled.a`
+const StyledLink = styled(Link)`
   margin-top: 25px;
   font-size: 14px;
   text-align: center;

@@ -1,28 +1,27 @@
 import Button from '../components/Button'
-import FooterLink from '../components/FooterLink'
+import StyledLink from '../components/StyledLink'
 import Input from '../components/Input.jsx'
 import Logo from '../components/Logo'
-import styled from 'styled-components'
+// import { useEffect } from 'react'
+// import axios from 'axios'
+import { SCContainerSyle } from './styles/styles'
 
-export function LoginPage() {
+export default function LoginPage() {
+  // const URL =
+  //   'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login'
+
+  // useEffect(() => {
+  //   axios.post(URL).the
+  // }, [])
+
   return (
-    <SCContainerLogin>
+    <SCContainerSyle>
       <Logo />
       <Input value={'email'} type={'email'} />
       <Input value={'senha'} type={'password'} />
       <Button value={'Entrar'} />
       {/* <a href="">Não tem uma conta? Cadastre-se!</a> */}
-      <FooterLink>Não tem uma conta? Cadastre-se!</FooterLink>
-    </SCContainerLogin>
+      <StyledLink>Não tem uma conta? Cadastre-se!</StyledLink>
+    </SCContainerSyle>
   )
 }
-
-const SCContainerLogin = styled.div`
-  margin-inline: auto;
-  width: 375px;
-  height: 800px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`
-export default SCContainerLogin
