@@ -1,11 +1,17 @@
 import styled from 'styled-components'
 import perfil from '../assets/perfil.png'
+import UserContext from '../UserContext'
+import { useContext } from 'react'
 
 export default function MainHeader() {
+  const { user } = useContext(UserContext)
+
+  console.log('User na Pagina Main Header', user)
+
   return (
     <SCMainHeader className="main-header">
       <h2>TrackIt</h2>
-      <img src={perfil} alt="foto de perfil" />
+      <img src={user.image} alt="foto de perfil" />
     </SCMainHeader>
   )
 }
@@ -33,6 +39,8 @@ const SCMainHeader = styled.header`
   }
 
   img {
+    width: 51px;
+    height: 51px;
     border-radius: 98.5px;
   }
 `

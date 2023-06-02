@@ -6,6 +6,8 @@ import { SCContainerSyle } from './styles/styles'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import UserContext from '../UserContext'
 
 export default function CadastroPage() {
   const [email, setEmail] = useState('')
@@ -13,6 +15,8 @@ export default function CadastroPage() {
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const { setUser } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -38,6 +42,10 @@ export default function CadastroPage() {
     axios
       .post(URL, novo)
       .then(response => {
+        const userData = response.data
+        localStorage.setItem('user', JSON.stringify(userData))
+        setUser(userData)
+
         alert('usuario cadastrado com sucesso')
         navigate('/')
       })
