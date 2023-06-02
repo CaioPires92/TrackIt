@@ -4,22 +4,47 @@ import Input from '../components/Input'
 import Logo from '../components/Logo'
 import { SCContainerSyle } from './styles/styles'
 import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function CadastroPage() {
   const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
-  const [nome, setNome] = useState('')
-  const [foto, setFoto] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [image, setImage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   function cadastrar(e) {
     e.preventDefault()
 
-    setTimeout(() => {
-      console.log(email)
-      console.log(senha)
-      console.log(nome)
-      console.log(foto)
-    }, 1)
+    setIsLoading(true)
+
+    console.log(email)
+    console.log(password)
+    console.log(name)
+    console.log(image)
+
+    const URL =
+      'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up'
+    const novo = {
+      email,
+      name,
+      image,
+      password
+    }
+
+    axios
+      .post(URL, novo)
+      .then(response => {
+        alert('usuario cadastrado com sucesso')
+        navigate('/')
+      })
+      .catch(erro => alert(erro.response.data.message))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -33,31 +58,35 @@ export default function CadastroPage() {
             placeholder={'email'}
             value={email}
             id={'emailInput'}
+            disabled={isLoading}
           />
           <Input
             type="password"
-            onChange={e => setSenha(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             placeholder="senha"
-            value={senha}
+            value={password}
             id={'senhaInput'}
+            disabled={isLoading}
           />
           <Input
             type={'text'}
-            onChange={e => setNome(e.target.value)}
+            onChange={e => setName(e.target.value)}
             placeholder={'nome'}
-            value={nome}
+            value={name}
             id={'nomeInput'}
+            disabled={isLoading}
           />
           <Input
             type={'text'}
-            onChange={e => setFoto(e.target.value)}
+            onChange={e => setImage(e.target.value)}
             placeholder={'foto'}
-            value={foto}
+            value={image}
             id={'fotoInput'}
+            disabled={isLoading}
           />
-          <Button>Cadastrar</Button>
+          <Button disabled={isLoading}>Cadastrar</Button>
         </form>
-        <FooterLink>Já tem uma conta? Faça login!</FooterLink>
+        <FooterLink value={'/'}>Já tem uma conta? Faça login!</FooterLink>
       </SCContainerSyle>
     </div>
   )

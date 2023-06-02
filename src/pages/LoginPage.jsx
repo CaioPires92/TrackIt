@@ -2,26 +2,67 @@ import Button from '../components/Button'
 import StyledLink from '../components/StyledLink'
 import Input from '../components/Input.jsx'
 import Logo from '../components/Logo'
-// import { useEffect } from 'react'
-// import axios from 'axios'
 import { SCContainerSyle } from './styles/styles'
+import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
-  // const URL =
-  //   'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login'
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  // useEffect(() => {
-  //   axios.post(URL).the
-  // }, [])
+  const navigate = useNavigate()
+
+  function login(e) {
+    e.preventDefault()
+
+    const URL =
+      'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login'
+
+    const novoLogin = {
+      email,
+      password
+    }
+
+    axios
+      .post(URL, novoLogin)
+      .then(response => {
+        alert('Login feito com sucesso')
+        navigate('/hoje')
+      })
+      .catch(erro => alert(erro.response.data.message))
+      .finally(() => {
+        setIsLoading(true)
+      })
+  }
 
   return (
     <SCContainerSyle>
       <Logo />
-      <Input value={'email'} type={'email'} />
-      <Input value={'senha'} type={'password'} />
-      <Button value={'Entrar'} />
+      <form onSubmit={login}>
+        <Input
+          type={'email'}
+          onChange={e => setEmail(e.target.value)}
+          placeholder={'email'}
+          value={email}
+          id={'emailInput'}
+          disabled={isLoading}
+        />
+        <Input
+          type="password"
+          onChange={e => setPassword(e.target.value)}
+          placeholder="senha"
+          value={password}
+          id={'senhaInput'}
+          disabled={isLoading}
+        />
+        <Button disabled={isLoading} isLoading={isLoading}>
+          Entrar
+        </Button>
+      </form>
       {/* <a href="">Não tem uma conta? Cadastre-se!</a> */}
-      <StyledLink>Não tem uma conta? Cadastre-se!</StyledLink>
+      <StyledLink value="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
     </SCContainerSyle>
   )
 }

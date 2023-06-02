@@ -1,7 +1,14 @@
 import styled from 'styled-components'
 
 // eslint-disable-next-line react/prop-types
-export default function Input({ value, type, placeholder, id, onChange }) {
+export default function Input({
+  value,
+  type,
+  placeholder,
+  id,
+  onChange,
+  disabled
+}) {
   return (
     <>
       <SCContainerInput>
@@ -15,6 +22,7 @@ export default function Input({ value, type, placeholder, id, onChange }) {
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            disabled={disabled}
           />
         </SCInput>
       </SCContainerInput>
@@ -23,11 +31,6 @@ export default function Input({ value, type, placeholder, id, onChange }) {
 }
 
 const SCContainerInput = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
   input {
     width: 303px;
     height: 45px;
@@ -38,8 +41,6 @@ const SCContainerInput = styled.div`
 
     &::placeholder {
       font-family: 'Lexend Deca';
-      font-style: normal;
-      font-weight: 400;
 
       font-size: 20px;
       padding: 10px;
@@ -50,10 +51,6 @@ const SCContainerInput = styled.div`
 `
 const SCInput = styled.div`
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
-  gap: 5px;
   margin-top: 6px;
 `

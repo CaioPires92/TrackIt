@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 // eslint-disable-next-line react/prop-types
-export default function FooterLink({ children }) {
-  return <StyledLink to={'/cadastro'}>{children}</StyledLink>
+export default function FooterLink({ children, value }) {
+  return <StyledLink to={value}>{children}</StyledLink>
 }
 
 const StyledLink = styled(Link)`
