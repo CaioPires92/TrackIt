@@ -1,24 +1,21 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import DiasDaSemana from './DiasDaSemana'
 
-const diasDaSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-
-export function CampoDeHabitos({ onClick, onChangeInput }) {
+export function CampoDeHabitos({
+  onClick,
+  onChangeInput,
+  diasDaSemana,
+  setDiasSelecionados,
+  diasSelecionados,
+  handleDiaClick
+}) {
   const [valorInput, setValorInput] = useState('')
-  const [diasSelecionados, setDiasSelecionados] = useState([])
 
   function handleChange(e) {
     const novoValor = e.target.value
     setValorInput(novoValor)
     onChangeInput(novoValor)
-  }
-
-  function handleDiaClick(index) {
-    if (diasSelecionados.includes(index)) {
-      setDiasSelecionados(diasSelecionados.filter(d => d !== index))
-    } else {
-      setDiasSelecionados([...diasSelecionados, index])
-    }
   }
 
   console.log(diasSelecionados)
@@ -34,13 +31,14 @@ export function CampoDeHabitos({ onClick, onChangeInput }) {
         />
         <SCCContainerBtnSemana>
           {diasDaSemana.map((dia, index) => (
-            <button
+            <DiasDaSemana
               key={index}
+              dia={dia}
               onClick={() => handleDiaClick(index)}
-              className={diasSelecionados.includes(index) ? 'selected' : ''}
-            >
-              {dia}
-            </button>
+              index={index}
+              diasSelecionados={diasSelecionados}
+              setDiasSelecionados={setDiasSelecionados}
+            />
           ))}
         </SCCContainerBtnSemana>
         <BtnContainer>

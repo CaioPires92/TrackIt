@@ -1,7 +1,7 @@
 import SCCampoHabitos from './CampoHabitos'
-import { DiasDaSemana } from './DiasDaSemana'
 import lixo from '../assets/lixo.png'
 import styled from 'styled-components'
+// import DiasDaSemana from './DiasDaSemana'
 
 export default function HabitoSelecionado() {
   return (
@@ -12,7 +12,7 @@ export default function HabitoSelecionado() {
           <img src={lixo} alt="" />
         </a>
       </SCContainer>
-      <DiasDaSemana />
+      {/* <DiasDaSemana /> */}
     </SCCampoHabitos>
   )
 }

@@ -8,9 +8,12 @@ import axios from 'axios'
 import { useState } from 'react'
 
 export default function HabitosPage() {
+  const diasDaSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
   const [novoHabito, setNovoHabito] = useState(null)
   const [exibe, setExibe] = useState(false)
   const [valorInput, setValorInput] = useState('')
+  const [diasSelecionados, setDiasSelecionados] = useState([])
 
   const URL =
     'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
@@ -33,6 +36,14 @@ export default function HabitosPage() {
     console.log(valorInput)
   }
 
+  function handleDiaClick(index) {
+    if (diasSelecionados.includes(index)) {
+      setDiasSelecionados(diasSelecionados.filter(d => d !== index))
+    } else {
+      setDiasSelecionados([...diasSelecionados, index])
+    }
+  }
+
   return (
     <SCContainerHojeHabitos>
       <MainHeader />
@@ -44,11 +55,19 @@ export default function HabitosPage() {
 
       {exibe && (
         <CampoDeHabitos
+          handleDiaClick={handleDiaClick}
+          diasDaSemana={diasDaSemana}
           onClick={fecharInput}
           onChangeInput={handleInputChange}
+          diasSelecionados={diasSelecionados}
+          setDiasSelecionados={setDiasSelecionados}
         />
       )}
-      <HabitoSelecionado />
+      <HabitoSelecionado
+        diasDaSemana={diasDaSemana}
+        diasSelecionados={diasSelecionados}
+        setDiasSelecionados={setDiasSelecionados}
+      />
       <HabitoSelecionado />
       <HabitoSelecionado />
 
