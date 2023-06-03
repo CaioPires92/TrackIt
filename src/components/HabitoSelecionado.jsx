@@ -6,9 +6,8 @@ import SCCContainerBtnSemana from '../pages/styles/ContainerBtnSemana'
 
 export default function HabitoSelecionado({
   habito,
-  diasDaSemana
-  // diasSelecionados,
-  // dia
+  diasDaSemana,
+  diasSelecionados
 }) {
   return (
     <SCCampoHabitos>
@@ -20,7 +19,13 @@ export default function HabitoSelecionado({
       </SCContainer>
       <SCCContainerBtnSemana>
         {diasDaSemana.map((dia, index) => (
-          <DiasDaSemana key={index} dia={'c'} diasSelecionados={habito.days} />
+          <DiasDaSemana
+            key={index}
+            dia={dia}
+            index={index}
+            diasSelecionados={diasSelecionados}
+            diasHabito={habito.days}
+          />
         ))}
       </SCCContainerBtnSemana>
     </SCCampoHabitos>

@@ -114,6 +114,7 @@ export default function HabitosPage() {
           habito={habito}
           key={habito.id}
           diasDaSemana={diasDaSemana}
+          diasSelecionados={diasSelecionados}
         />
       ))}
 
@@ -161,4 +162,3 @@ const Paragrafo = styled.p`
   padding: 0 18px;
   color: #666666;
 `
-
