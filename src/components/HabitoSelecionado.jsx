@@ -1,5 +1,5 @@
 import SCCampoHabitos from './CampoHabitos'
-import DiasDaSemana from './DiasDaSemana'
+import { DiasDaSemana } from './DiasDaSemana'
 import lixo from '../assets/lixo.png'
 import styled from 'styled-components'
 
