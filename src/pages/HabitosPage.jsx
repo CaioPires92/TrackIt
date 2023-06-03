@@ -6,22 +6,15 @@ import MainFooter from '../components/MainFooter'
 import { SCContainerHojeHabitos } from './styles/styles'
 import axios from 'axios'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function HabitosPage() {
   const diasDaSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-
-  const [novoHabito, setNovoHabito] = useState(null)
-  const [exibe, setExibe] = useState(false)
   const [valorInput, setValorInput] = useState('')
+  const [exibe, setExibe] = useState(false)
   const [diasSelecionados, setDiasSelecionados] = useState([])
-
-  const URL =
-    'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
-
-  axios
-    .post(URL, novoHabito)
-    .then(response => console.log(response.data))
-    .catch(error => console.log(error.response))
+  const [habitos, setHabitos] = useState([])
+  const [loading, setLoading] = useState(true)
 
   function exibirInputHabito() {
     setExibe(true)
@@ -31,9 +24,32 @@ export default function HabitosPage() {
     setExibe(false)
   }
 
+  function salvaHabitos() {
+    const URL =
+      'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+
+    const TOKEN =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
+
+    const novoHabito = {
+      name: valorInput,
+      days: diasSelecionados
+    }
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
+    }
+
+    axios
+      .post(URL, novoHabito, config)
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error.response))
+  }
+
   function handleInputChange(novoValor) {
     setValorInput(novoValor)
-    console.log(valorInput)
   }
 
   function handleDiaClick(index) {
@@ -42,6 +58,33 @@ export default function HabitosPage() {
     } else {
       setDiasSelecionados([...diasSelecionados, index])
     }
+  }
+
+  useEffect(() => {
+    const URL =
+      'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+
+    const TOKEN =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`
+      }
+    }
+
+    axios
+      .get(URL, config)
+      .then(response => {
+        setHabitos(response.data)
+        console.log('habitos: ', habitos)
+        setLoading(false)
+      })
+      .catch(error => console.log(error.response))
+  }, [])
+
+  if (loading) {
+    return <div>Carregando...</div>
   }
 
   return (
@@ -55,21 +98,24 @@ export default function HabitosPage() {
 
       {exibe && (
         <CampoDeHabitos
+          onChangeInput={handleInputChange}
+          salvaHabitos={salvaHabitos}
           handleDiaClick={handleDiaClick}
           diasDaSemana={diasDaSemana}
           onClick={fecharInput}
-          onChangeInput={handleInputChange}
           diasSelecionados={diasSelecionados}
           setDiasSelecionados={setDiasSelecionados}
+          valorInput={valorInput}
         />
       )}
-      <HabitoSelecionado
-        diasDaSemana={diasDaSemana}
-        diasSelecionados={diasSelecionados}
-        setDiasSelecionados={setDiasSelecionados}
-      />
-      <HabitoSelecionado />
-      <HabitoSelecionado />
+
+      {habitos.map(habito => (
+        <HabitoSelecionado
+          habito={habito}
+          key={habito.id}
+          diasDaSemana={diasDaSemana}
+        />
+      ))}
 
       <Paragrafo>
         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para

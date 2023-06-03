@@ -1,24 +1,25 @@
 import styled from 'styled-components'
-import { useState } from 'react'
 import DiasDaSemana from './DiasDaSemana'
+import { useState } from 'react'
 
 export function CampoDeHabitos({
   onClick,
-  onChangeInput,
   diasDaSemana,
   setDiasSelecionados,
   diasSelecionados,
-  handleDiaClick
+  handleDiaClick,
+  salvaHabitos,
+  onChangeInput
 }) {
   const [valorInput, setValorInput] = useState('')
+
+  console.log(diasSelecionados)
 
   function handleChange(e) {
     const novoValor = e.target.value
     setValorInput(novoValor)
     onChangeInput(novoValor)
   }
-
-  console.log(diasSelecionados)
 
   return (
     <>
@@ -43,7 +44,7 @@ export function CampoDeHabitos({
         </SCCContainerBtnSemana>
         <BtnContainer>
           <ButtonCancelar onClick={onClick}>Cancelar</ButtonCancelar>
-          <ButtonSalvar>Salvar</ButtonSalvar>
+          <ButtonSalvar onClick={salvaHabitos}>Salvar</ButtonSalvar>
         </BtnContainer>
       </SCCampoHabitos>
     </>
