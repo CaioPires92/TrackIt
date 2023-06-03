@@ -11,7 +11,11 @@ export default function MainHeader() {
   return (
     <SCMainHeader className="main-header">
       <h2>TrackIt</h2>
-      <img src={user.image} alt="foto de perfil" />
+      {user && user.data && user.data.image ? (
+        <img src={user.data.image} alt="foto de perfil" />
+      ) : (
+        <img src={perfil} alt="foto de perfil" />
+      )}
     </SCMainHeader>
   )
 }

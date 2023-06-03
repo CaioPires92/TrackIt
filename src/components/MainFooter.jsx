@@ -1,11 +1,12 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export default function MainFooter() {
   return (
     <SCMainFooter>
-      <a href="">Habitos</a>
-      <a href="">Hoje</a>
-      <a href="">Historico</a>
+      <Link>Habitos</Link>
+      <Link>Hoje</Link>
+      <Link>Historico</Link>
     </SCMainFooter>
   )
 }

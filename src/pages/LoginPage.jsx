@@ -3,14 +3,17 @@ import StyledLink from '../components/StyledLink'
 import Input from '../components/Input.jsx'
 import Logo from '../components/Logo'
 import { SCContainerSyle } from './styles/styles'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import UserContext from '../UserContext'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const { setUser } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -28,6 +31,9 @@ export default function LoginPage() {
     axios
       .post(URL, novoLogin)
       .then(response => {
+        const userData = response.data
+        setUser(prevState => ({ ...prevState, isLogged: true }))
+        localStorage.setItem('user', JSON.stringify(userData))
         alert('Login feito com sucesso')
         navigate('/hoje')
       })

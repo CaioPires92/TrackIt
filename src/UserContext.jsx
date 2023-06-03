@@ -5,12 +5,12 @@ import { useState } from 'react'
 const userContext = createContext()
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({ data: null, isLogged: false })
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
     if (storedUser) {
-      setUser(JSON.parse(storedUser))
+      setUser({ data: JSON.parse(storedUser), isLogged: true })
     }
   }, [])
 

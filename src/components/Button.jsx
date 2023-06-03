@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import { ThreeDots } from 'react-loader-spinner'
 
-// eslint-disable-next-line react/prop-types
 export default function Button({ children, disabled, isLoading }) {
-  console.log('dsdds', isLoading)
+  console.log('isLoading', isLoading)
   return (
     <ScButton disabled={disabled}>
       {isLoading ? (
