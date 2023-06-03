@@ -2,6 +2,7 @@ import SCCampoHabitos from './CampoHabitos'
 import lixo from '../assets/lixo.png'
 import styled from 'styled-components'
 import DiasDaSemana from './DiasDaSemana'
+import SCCContainerBtnSemana from '../pages/styles/ContainerBtnSemana'
 
 export default function HabitoSelecionado({
   habito,
@@ -17,9 +18,11 @@ export default function HabitoSelecionado({
           <img src={lixo} alt="" />
         </a>
       </SCContainer>
-      {diasDaSemana.map((dia, index) => (
-        <DiasDaSemana key={index} dia={'c'} diasSelecionados={habito.days} />
-      ))}
+      <SCCContainerBtnSemana>
+        {diasDaSemana.map((dia, index) => (
+          <DiasDaSemana key={index} dia={'c'} diasSelecionados={habito.days} />
+        ))}
+      </SCCContainerBtnSemana>
     </SCCampoHabitos>
   )
 }

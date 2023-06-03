@@ -161,3 +161,4 @@ const Paragrafo = styled.p`
   padding: 0 18px;
   color: #666666;
 `
+
