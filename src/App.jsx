@@ -16,8 +16,7 @@ function App() {
             <Route path="/cadastro" element={<CadastroPage />} />
             <Route path="/hoje" element={<Hoje />} />
             <Route path="/habitos" element={<HabitosPage />} />
-            <Route path="/historico " element={<Historico />} />
-            <Route path="/habitos" element={<LoginPage />} />
+            <Route path="/historico" element={<Historico />} />
           </Routes>
         </UserProvider>
       </BrowserRouter>

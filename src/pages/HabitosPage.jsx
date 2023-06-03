@@ -1,24 +1,56 @@
 import styled from 'styled-components'
-// import { CampoDeHabitos } from '../components/CampoHabitos'
+import { CampoDeHabitos } from '../components/CampoHabitos'
 import HabitoSelecionado from '../components/HabitoSelecionado'
 import MainHeader from '../components/MainHeader'
 import MainFooter from '../components/MainFooter'
 import { SCContainerHojeHabitos } from './styles/styles'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function HabitosPage() {
+  const [novoHabito, setNovoHabito] = useState(null)
+  const [exibe, setExibe] = useState(false)
+  const [valorInput, setValorInput] = useState('')
+
+  const URL =
+    'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+
+  axios
+    .post(URL, novoHabito)
+    .then(response => console.log(response.data))
+    .catch(error => console.log(error.response))
+
+  function exibirInputHabito() {
+    setExibe(true)
+  }
+
+  function fecharInput() {
+    setExibe(false)
+  }
+
+  function handleInputChange(novoValor) {
+    setValorInput(novoValor)
+    console.log(valorInput)
+  }
+
   return (
     <SCContainerHojeHabitos>
       <MainHeader />
 
       <HeaderConteudo>
         <h2>Meus hábitos</h2>
-        <button>+</button>
+        <button onClick={exibirInputHabito}>+</button>
       </HeaderConteudo>
 
+      {exibe && (
+        <CampoDeHabitos
+          onClick={fecharInput}
+          onChangeInput={handleInputChange}
+        />
+      )}
       <HabitoSelecionado />
       <HabitoSelecionado />
       <HabitoSelecionado />
-      {/* <CampoDeHabitos /> */}
 
       <Paragrafo>
         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para

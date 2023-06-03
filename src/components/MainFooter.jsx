@@ -4,9 +4,9 @@ import styled from 'styled-components'
 export default function MainFooter() {
   return (
     <SCMainFooter>
-      <Link>Habitos</Link>
-      <Link>Hoje</Link>
-      <Link>Historico</Link>
+      <Link to={'/habitos'}>Habitos</Link>
+      <Link to={'/hoje'}>Hoje</Link>
+      <Link to={'/historico'}>Historico</Link>
     </SCMainFooter>
   )
 }

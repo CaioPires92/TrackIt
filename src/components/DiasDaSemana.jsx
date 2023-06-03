@@ -1,16 +1,32 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 
-export default function DiasDaSemana() {
+const diasDaSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
+export default function DiasDaSemana({}) {
+  const [diasSelecionados, setDiasSelecionados] = useState([])
+
+  function handleDiaClick(index) {
+    if (diasSelecionados.includes(index)) {
+      setDiasSelecionados(diasSelecionados.filter(d => d !== index))
+    } else {
+      setDiasSelecionados([...diasSelecionados, index])
+    }
+  }
+
+  console.log(diasSelecionados)
   return (
     <>
       <SCCContainerBtnSemana>
-        <button>D</button>
-        <button>S</button>
-        <button>T</button>
-        <button>Q</button>
-        <button>Q</button>
-        <button>S</button>
-        <button>S</button>
+        {diasDaSemana.map((dia, index) => (
+          <button
+            key={index}
+            onClick={() => handleDiaClick(index)}
+            className={diasSelecionados.includes(index) ? 'selected' : ''}
+          >
+            {dia}
+          </button>
+        ))}
       </SCCContainerBtnSemana>
     </>
   )
@@ -34,5 +50,10 @@ const SCCContainerBtnSemana = styled.div`
     font-size: 20px;
     margin-top: 8px;
     color: #dbdbdb;
+
+    &.selected {
+      background-color: gray;
+      color: white;
+    }
   }
 `

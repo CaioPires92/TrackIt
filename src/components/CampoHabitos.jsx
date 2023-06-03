@@ -1,14 +1,28 @@
 import styled from 'styled-components'
 import DiasDaSemana from './DiasDaSemana'
+import { useState } from 'react'
 
-export function CampoDeHabitos() {
+export function CampoDeHabitos({ onClick, onChangeInput }) {
+  const [valorInput, setValorInput] = useState('')
+
+  function handleChange(e) {
+    const novoValor = e.target.value
+    setValorInput(novoValor)
+    onChangeInput(novoValor)
+  }
+
   return (
     <>
       <SCCampoHabitos>
-        <input type="text" placeholder="nome do hábito" />
+        <input
+          type="text"
+          placeholder="nome do hábito"
+          value={valorInput}
+          onChange={handleChange}
+        />
         <DiasDaSemana />
         <BtnContainer>
-          <ButtonCancelar>Cancelar</ButtonCancelar>
+          <ButtonCancelar onClick={onClick}>Cancelar</ButtonCancelar>
           <ButtonSalvar>Salvar</ButtonSalvar>
         </BtnContainer>
       </SCCampoHabitos>
@@ -56,7 +70,7 @@ const BtnContainer = styled.div`
   gap: 20px;
 `
 
-const ButtonCancelar = styled.button`
+const ButtonCancelar = styled.a`
   width: 69px;
   height: 20px;
   font-size: 16px;
