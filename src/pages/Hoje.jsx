@@ -9,17 +9,27 @@ import axios from 'axios'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
-
-dayjs.locale('pt-br')
-
-const capitalizeFirstLetter = str => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-const today = capitalizeFirstLetter(dayjs().format('dddd, DD[/]MM'))
+import { useContext } from 'react'
+import { ProgressoContext } from '../ProgressoContext'
 
 export default function Hoje() {
+  const { progresso, atualizarProgresso } = useContext(ProgressoContext)
   const [data, setData] = useState([])
+
+  const calcularProgresso = data => {
+    const totalHabitos = data.length
+    const habitosConcluidos = data.filter(item => item.done).length
+    const progressoAtualizado = (habitosConcluidos / totalHabitos) * 100
+    return progressoAtualizado.toFixed(0)
+  }
+
+  dayjs.locale('pt-br')
+
+  const capitalizeFirstLetter = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
+  const today = capitalizeFirstLetter(dayjs().format('dddd, DD[/]MM'))
 
   const TOKEN =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
@@ -35,15 +45,16 @@ export default function Hoje() {
       'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today'
     axios
       .get(URL, config)
-      .then(
-        response => setData(response.data),
-        console.log('dados do data', data)
-      )
+      .then(response => {
+        setData(response.data)
+        const novoProgresso = calcularProgresso(response.data)
+        atualizarProgresso(novoProgresso)
+      })
       .catch(error => console.error(error.response))
   }, [])
 
   const Subtitulo = ({ progresso }) => {
-    if (progresso === 0) {
+    if (progresso == 0) {
       return <span>Nenhum hábito concluído ainda</span>
     } else {
       return <span>{progresso}% dos hábitos concluídos</span>
@@ -67,13 +78,6 @@ export default function Hoje() {
       .catch(error => console.log(error.response))
   }
 
-  const calcularProgresso = () => {
-    const totalHabitos = data.length
-    const habitosConcluidos = data.filter(item => item.done).length
-    const progresso = (habitosConcluidos / totalHabitos) * 100
-    return progresso.toFixed(0)
-  }
-
   return (
     <>
       <MainHeader />
@@ -82,7 +86,7 @@ export default function Hoje() {
           <Header>
             <h2>{today}</h2>
             <p>
-              <Subtitulo progresso={calcularProgresso()} />
+              <Subtitulo progresso={data ? calcularProgresso(data) : 0} />
             </p>
           </Header>
 
@@ -118,7 +122,7 @@ export default function Hoje() {
             </ContainerConteudo>
           ))}
         </SCContainerHojeHabitos>
-        <MainFooter calcularProgresso={calcularProgresso} />
+        <MainFooter calcularProgresso={() => calcularProgresso(data)} />
       </SCContainerSyle>
     </>
   )
