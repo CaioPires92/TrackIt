@@ -13,14 +13,18 @@ export default function HabitoSelecionado({
   return (
     <SCCampoHabitos>
       <SCContainer>
-        <h2>{habito.name}</h2>
-        <a href="#">
-          <img src={lixo} alt="" onClick={() => onClick(habito.id)} />
-        </a>
+        <h2 data-test="habit-name">{habito.name}</h2>
+        <img
+          data-test="habit-delete-btn"
+          src={lixo}
+          alt=""
+          onClick={() => onClick(habito.id)}
+        />
       </SCContainer>
       <SCCContainerBtnSemana>
         {diasDaSemana.map((dia, index) => (
           <DiasDaSemana
+            data-test="habit-day"
             key={index}
             dia={dia}
             index={index}

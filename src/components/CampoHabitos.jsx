@@ -27,6 +27,7 @@ export function CampoDeHabitos({
     <>
       <SCCampoHabitos>
         <input
+          data-test="habit-name-input"
           disabled={bloqueia}
           type="text"
           placeholder="nome do hábito"
@@ -36,6 +37,7 @@ export function CampoDeHabitos({
         <SCCContainerBtnSemana>
           {diasDaSemana.map((dia, index) => (
             <DiasDaSemana
+              data-test="habit-day"
               bloqueia={bloqueia}
               key={index}
               dia={dia}
@@ -47,8 +49,15 @@ export function CampoDeHabitos({
           ))}
         </SCCContainerBtnSemana>
         <BtnContainer>
-          <ButtonCancelar onClick={onClick}>Cancelar</ButtonCancelar>
-          <ButtonSalvar onClick={salvaHabitos}>Salvar</ButtonSalvar>
+          <ButtonCancelar data-test="habit-create-cancel-btn" onClick={onClick}>
+            Cancelar
+          </ButtonCancelar>
+          <ButtonSalvar
+            data-test="habit-create-save-btn"
+            onClick={salvaHabitos}
+          >
+            Salvar
+          </ButtonSalvar>
         </BtnContainer>
       </SCCampoHabitos>
     </>

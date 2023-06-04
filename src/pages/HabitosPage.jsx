@@ -107,15 +107,18 @@ export default function HabitosPage({ calcularProgresso, data }) {
 
   return (
     <SCContainerHojeHabitos>
-      <MainHeader />
+      <MainHeader data-test="header" />
 
       <HeaderConteudo>
         <h2>Meus hábitos</h2>
-        <button onClick={exibirInputHabito}>+</button>
+        <button data-test="habit-create-btn" onClick={exibirInputHabito}>
+          +
+        </button>
       </HeaderConteudo>
 
       {exibe && (
         <CampoDeHabitos
+          data-test="habit-create-container"
           bloqueia={bloqueia}
           onChangeInput={handleInputChange}
           salvaHabitos={salvaHabitos}
@@ -130,6 +133,7 @@ export default function HabitosPage({ calcularProgresso, data }) {
 
       {habitos.map(habito => (
         <HabitoSelecionado
+          data-test="habit-container"
           habito={habito}
           key={habito.id}
           diasDaSemana={diasDaSemana}
@@ -146,7 +150,10 @@ export default function HabitosPage({ calcularProgresso, data }) {
       ) : (
         ''
       )}
-      <MainFooter calcularProgresso={() => calcularProgresso(data)} />
+      <MainFooter
+        data-test="menu"
+        calcularProgresso={() => calcularProgresso(data)}
+      />
     </SCContainerHojeHabitos>
   )
 }

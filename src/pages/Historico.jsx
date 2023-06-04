@@ -6,7 +6,7 @@ import { SCContainerHojeHabitos, SCContainerSyle } from './styles/styles'
 export default function Historico({ calcularProgresso, data, setData }) {
   return (
     <>
-      <MainHeader />
+      <MainHeader data-test="header" />
       <SCContainerSyle>
         <SCContainerHojeHabitos>
           <Header>
@@ -14,7 +14,10 @@ export default function Historico({ calcularProgresso, data, setData }) {
             <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
           </Header>
         </SCContainerHojeHabitos>
-        <MainFooter calcularProgresso={() => calcularProgresso(data)} />
+        <MainFooter
+          data-test="menu"
+          calcularProgresso={() => calcularProgresso(data)}
+        />
       </SCContainerSyle>
     </>
   )

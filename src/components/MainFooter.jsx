@@ -6,9 +6,11 @@ import styled from 'styled-components'
 export default function MainFooter({ calcularProgresso }) {
   return (
     <SCMainFooter>
-      <Link to={'/habitos'}>Habitos</Link>
+      <Link test="habit-link" to={'/habitos'}>
+        Habitos
+      </Link>
 
-      <Link to={'/hoje'}>
+      <Link data-test="today-link" to={'/hoje'}>
         <StyledCircularProgressbar
           value={calcularProgresso()}
           text={'Hoje'}
@@ -22,7 +24,9 @@ export default function MainFooter({ calcularProgresso }) {
           })}
         />
       </Link>
-      <Link to={'/historico'}>Historico</Link>
+      <Link data-test="history-link" to={'/historico'}>
+        Historico
+      </Link>
     </SCMainFooter>
   )
 }

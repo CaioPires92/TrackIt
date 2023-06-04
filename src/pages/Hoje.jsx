@@ -71,24 +71,29 @@ export default function Hoje({ calcularProgresso, data, setData }) {
 
   return (
     <>
-      <MainHeader />
+      <MainHeader data-test="header" />
       <SCContainerSyle>
         <SCContainerHojeHabitos>
           <Header>
-            <h2>{today}</h2>
+            <h2 data-test="today">{today}</h2>
             <p>
-              <Subtitulo progresso={data ? calcularProgresso(data) : 0} />
+              <Subtitulo
+                data-test="today-counter"
+                progresso={data ? calcularProgresso(data) : 0}
+              />
             </p>
           </Header>
 
           {data.map(item => (
             <ContainerConteudo
+              data-test="today-habit-container"
               key={item.id}
               data-done={item.done ? 'true' : 'false'}
             >
               <div className="text">
-                <h2>{item.name}</h2>
+                <h2 data-test="today-habit-name">{item.name}</h2>
                 <StyledSpan
+                  data-test="today-habit-sequence"
                   data-done={item.done}
                   data-currentsequence={item.currentSequence}
                   data-highestsequence={item.highestSequence}
@@ -96,6 +101,7 @@ export default function Hoje({ calcularProgresso, data, setData }) {
                   Sequência atual: {item.currentSequence} dias{' '}
                 </StyledSpan>{' '}
                 <StyledSpan
+                  data-test="today-habit-record"
                   data-done={item.done}
                   data-currentsequence={item.currentSequence}
                   data-highestsequence={item.highestSequence}
@@ -105,6 +111,7 @@ export default function Hoje({ calcularProgresso, data, setData }) {
                 </StyledSpan>
               </div>
               <div
+                data-test="today-habit-check-btn"
                 onClick={() => concluir(item.id, item.done)}
                 data-done={item.done}
               >
@@ -113,7 +120,10 @@ export default function Hoje({ calcularProgresso, data, setData }) {
             </ContainerConteudo>
           ))}
         </SCContainerHojeHabitos>
-        <MainFooter calcularProgresso={() => calcularProgresso(data)} />
+        <MainFooter
+          data-test="menu"
+          calcularProgresso={() => calcularProgresso(data)}
+        />
       </SCContainerSyle>
     </>
   )
