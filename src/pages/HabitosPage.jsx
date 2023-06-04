@@ -15,6 +15,7 @@ export default function HabitosPage() {
   const [diasSelecionados, setDiasSelecionados] = useState([])
   const [habitos, setHabitos] = useState([])
   const [loading, setLoading] = useState(true)
+  const [bloqueia, setBloqueia] = useState(false)
 
   const TOKEN =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
@@ -34,6 +35,8 @@ export default function HabitosPage() {
   }
 
   function salvaHabitos() {
+    setBloqueia(true)
+
     const URL =
       'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
@@ -48,8 +51,8 @@ export default function HabitosPage() {
         console.log('Requisição POST realizada com sucesso')
         window.location.reload()
       })
-
-      .catch(error => console.log(error.response))
+      .catch(error => alert(error.response.statusText))
+    setBloqueia(false)
   }
 
   function handleInputChange(novoValor) {
@@ -113,6 +116,7 @@ export default function HabitosPage() {
 
       {exibe && (
         <CampoDeHabitos
+          bloqueia={bloqueia}
           onChangeInput={handleInputChange}
           salvaHabitos={salvaHabitos}
           handleDiaClick={handleDiaClick}

@@ -10,7 +10,8 @@ export function CampoDeHabitos({
   diasSelecionados,
   handleDiaClick,
   salvaHabitos,
-  onChangeInput
+  onChangeInput,
+  bloqueia
 }) {
   const [valorInput, setValorInput] = useState('')
 
@@ -26,6 +27,7 @@ export function CampoDeHabitos({
     <>
       <SCCampoHabitos>
         <input
+          disabled={bloqueia}
           type="text"
           placeholder="nome do hábito"
           value={valorInput}
@@ -34,6 +36,7 @@ export function CampoDeHabitos({
         <SCCContainerBtnSemana>
           {diasDaSemana.map((dia, index) => (
             <DiasDaSemana
+              bloqueia={bloqueia}
               key={index}
               dia={dia}
               onClick={() => handleDiaClick(index)}

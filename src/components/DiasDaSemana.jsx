@@ -4,7 +4,8 @@ export default function DiasDaSemana({
   index,
   diasSelecionados,
   diasHabito,
-  isInNewHabit
+  isInNewHabit,
+  bloqueia
 }) {
   const isSelected = diasSelecionados && diasSelecionados.includes(index)
   const isHabitoDay = diasHabito && diasHabito.includes(index)
@@ -12,6 +13,7 @@ export default function DiasDaSemana({
 
   return (
     <button
+      disabled={bloqueia}
       className={`${shouldChangeColor || isHabitoDay ? 'selected' : ''}`}
       onClick={onClick}
     >

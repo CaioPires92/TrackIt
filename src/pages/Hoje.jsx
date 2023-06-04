@@ -3,45 +3,90 @@ import styled from 'styled-components'
 import { ImCheckmark } from 'react-icons/im'
 import MainFooter from '../components/MainFooter'
 import { SCContainerSyle, SCContainerHojeHabitos } from './styles/styles'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br'
+
+dayjs.locale('pt-br')
+
+const capitalizeFirstLetter = str => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+const today = capitalizeFirstLetter(dayjs().format('dddd, DD[/]MM'))
 
 export default function Hoje() {
+  const [data, setData] = useState([])
+
+  const TOKEN =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`
+    }
+  }
+
+  useEffect(() => {
+    const URL =
+      'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today'
+    axios
+      .get(URL, config)
+      .then(
+        response => setData(response.data),
+        console.log('dados do data', data)
+      )
+      .catch(error => console.error(error.response))
+  }, [])
+
+  const Subtitulo = ({ progresso }) => {
+    if (progresso === 0) {
+      return <p>Nenhum hábito concluído ainda</p>
+    } else {
+      return <p>{progresso}% dos hábitos concluídos</p>
+    }
+  }
+
+  function concluir(id) {
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`
+
+    axios
+      .post(URL, {}, config)
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error.response))
+  }
+
   return (
     <>
       <MainHeader />
       <SCContainerSyle>
         <SCContainerHojeHabitos>
           <Header>
-            <h2>Segunda, 17/05</h2>
-            <p>Nenhum hábito concluído ainda</p>
+            <h2>{today}</h2>
+            <p>
+              <Subtitulo />
+            </p>
           </Header>
 
-          <ContainerConteudo>
-            <div className="text">
-              <h2>Ler 1 capítulo de livro</h2>
-              <p>Sequência atual: 3 dias Seu recorde: 5 dias</p>
-            </div>
-            <div>
-              <StyledReactIcon />
-            </div>
-          </ContainerConteudo>
-          <ContainerConteudo>
-            <div className="text">
-              <h2>Ler 1 capítulo de livro</h2>
-              <p>Sequência atual: 3 dias Seu recorde: 5 dias</p>
-            </div>
-            <div>
-              <StyledReactIcon />
-            </div>
-          </ContainerConteudo>
-          <ContainerConteudo>
-            <div className="text">
-              <h2>Ler 1 capítulo de livro</h2>
-              <p>Sequência atual: 3 dias Seu recorde: 5 dias</p>
-            </div>
-            <div>
-              <StyledReactIcon />
-            </div>
-          </ContainerConteudo>
+          {data.map(item => (
+            <ContainerConteudo
+              key={item.id}
+              data-done={item.done ? 'true' : 'false'}
+            >
+              <div className="text">
+                <h2>{item.name}</h2>
+                <p>
+                  Sequência atual: {item.currentSequence} dias Seu
+                  recorde:&nbsp;{item.highestSequence} dias
+                </p>
+              </div>
+              <div onClick={() => concluir(item.id)} data-done={item.done}>
+                <StyledReactIcon />
+              </div>
+            </ContainerConteudo>
+          ))}
         </SCContainerHojeHabitos>
         <MainFooter />
       </SCContainerSyle>
@@ -83,8 +128,8 @@ const ContainerConteudo = styled.div`
     &:last-child {
       width: 69px;
       height: 69px;
-
-      background-color: #ebebeb;
+      background-color: ${props =>
+        props['data-done'] === 'true' ? '#8FC549' : '#ebebeb'};
       border: 1px solid #e7e7e7;
       border-radius: 5px;
       display: flex;
@@ -95,13 +140,12 @@ const ContainerConteudo = styled.div`
 
   h2 {
     font-size: 20px;
-
+    margin-bottom: 7px;
     color: #666666;
   }
 
   p {
     width: 150px;
-    margin-top: 7px;
     font-size: 13px;
     color: #666666;
   }
