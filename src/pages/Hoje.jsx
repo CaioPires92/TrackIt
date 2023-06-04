@@ -86,13 +86,21 @@ export default function Hoje() {
             >
               <div className="text">
                 <h2>{item.name}</h2>
-                <span>Sequência atual: {item.currentSequence} dias </span>{' '}
-                <span>
-                  {' '}
+                <StyledSpan
+                  data-done={item.done}
+                  data-currentsequence={item.currentSequence}
+                  data-highestsequence={item.highestSequence}
+                >
+                  Sequência atual: {item.currentSequence} dias{' '}
+                </StyledSpan>{' '}
+                <StyledSpan
+                  data-done={item.done}
+                  data-currentsequence={item.currentSequence}
+                  data-highestsequence={item.highestSequence}
+                >
                   <br />
-                  Seu recorde:
-                  {item.highestSequence} dias
-                </span>
+                  Seu recorde: <span>{item.highestSequence} dias</span>
+                </StyledSpan>
               </div>
               <div
                 onClick={() => concluir(item.id, item.done)}
@@ -158,24 +166,34 @@ const ContainerConteudo = styled.div`
     margin-bottom: 7px;
     color: #666666;
   }
-
-  span {
-    width: 150px;
-    font-size: 13px;
-    color: #666666;
-
-    &:first-of-type {
-      ${props =>
-        props['data-done'] &&
-        css`
-          color: green;
-        `}
-    }
-  }
 `
 
 const StyledReactIcon = styled(ImCheckmark)`
   color: #fff;
   font-size: 34px;
   text-align: center;
+`
+
+const StyledSpan = styled.span`
+  width: 150px;
+  font-size: 13px;
+  color: #666666;
+
+  &:first-of-type {
+    ${props =>
+      props['data-done'] &&
+      css`
+        color: green;
+      `}
+  }
+
+  &:last-of-type {
+    ${props =>
+      props['data-done'] &&
+      props['data-currentsequence'] === props['data-highestsequence'] &&
+      parseInt(props['data-currentsequence']) > 0 &&
+      css`
+        color: green;
+      `}
+  }
 `
