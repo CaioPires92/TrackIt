@@ -1,5 +1,6 @@
 import MainHeader from '../components/MainHeader'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
 import { ImCheckmark } from 'react-icons/im'
 import MainFooter from '../components/MainFooter'
 import { SCContainerSyle, SCContainerHojeHabitos } from './styles/styles'
@@ -43,18 +44,26 @@ export default function Hoje() {
 
   const Subtitulo = ({ progresso }) => {
     if (progresso === 0) {
-      return <p>Nenhum hábito concluído ainda</p>
+      return <span>Nenhum hábito concluído ainda</span>
     } else {
-      return <p>{progresso}% dos hábitos concluídos</p>
+      return <span>{progresso}% dos hábitos concluídos</span>
     }
   }
 
-  function concluir(id) {
-    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`
+  function concluir(id, done) {
+    let URL
 
+    if (done) {
+      URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`
+    } else {
+      URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`
+    }
     axios
       .post(URL, {}, config)
-      .then(response => console.log(response.data))
+      .then(response => {
+        console.log(response.data)
+        window.location.reload()
+      })
       .catch(error => console.log(error.response))
   }
 
@@ -77,12 +86,18 @@ export default function Hoje() {
             >
               <div className="text">
                 <h2>{item.name}</h2>
-                <p>
-                  Sequência atual: {item.currentSequence} dias Seu
-                  recorde:&nbsp;{item.highestSequence} dias
-                </p>
+                <span>Sequência atual: {item.currentSequence} dias </span>{' '}
+                <span>
+                  {' '}
+                  <br />
+                  Seu recorde:
+                  {item.highestSequence} dias
+                </span>
               </div>
-              <div onClick={() => concluir(item.id)} data-done={item.done}>
+              <div
+                onClick={() => concluir(item.id, item.done)}
+                data-done={item.done}
+              >
                 <StyledReactIcon />
               </div>
             </ContainerConteudo>
@@ -144,10 +159,18 @@ const ContainerConteudo = styled.div`
     color: #666666;
   }
 
-  p {
+  span {
     width: 150px;
     font-size: 13px;
     color: #666666;
+
+    &:first-of-type {
+      ${props =>
+        props['data-done'] &&
+        css`
+          color: green;
+        `}
+    }
   }
 `
 
