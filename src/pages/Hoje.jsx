@@ -67,6 +67,13 @@ export default function Hoje() {
       .catch(error => console.log(error.response))
   }
 
+  const calcularProgresso = () => {
+    const totalHabitos = data.length
+    const habitosConcluidos = data.filter(item => item.done).length
+    const progresso = (habitosConcluidos / totalHabitos) * 100
+    return progresso.toFixed(0)
+  }
+
   return (
     <>
       <MainHeader />
@@ -75,7 +82,7 @@ export default function Hoje() {
           <Header>
             <h2>{today}</h2>
             <p>
-              <Subtitulo />
+              <Subtitulo progresso={calcularProgresso()} />
             </p>
           </Header>
 
@@ -111,7 +118,7 @@ export default function Hoje() {
             </ContainerConteudo>
           ))}
         </SCContainerHojeHabitos>
-        <MainFooter />
+        <MainFooter calcularProgresso={calcularProgresso} />
       </SCContainerSyle>
     </>
   )

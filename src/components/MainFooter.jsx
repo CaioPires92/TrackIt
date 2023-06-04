@@ -1,11 +1,27 @@
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default function MainFooter() {
+export default function MainFooter({ calcularProgresso }) {
   return (
     <SCMainFooter>
       <Link to={'/habitos'}>Habitos</Link>
-      <Link to={'/hoje'}>Hoje</Link>
+
+      <Link to={'/hoje'}>
+        <StyledCircularProgressbar
+          value={calcularProgresso()}
+          text={'Hoje'}
+          background
+          backgroundPadding={6}
+          styles={buildStyles({
+            backgroundColor: '#52b6ff',
+            textColor: '#fff',
+            pathColor: '#fff',
+            trailColor: 'transparent'
+          })}
+        />
+      </Link>
       <Link to={'/historico'}>Historico</Link>
     </SCMainFooter>
   )
@@ -27,21 +43,14 @@ const SCMainFooter = styled.footer`
     text-align: center;
     color: #52b6ff;
     text-decoration: none;
-
-    &:nth-child(2) {
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background-color: #52b6ff;
-      color: #fff;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   }
+`
+
+const StyledCircularProgressbar = styled(CircularProgressbar)`
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
 `
