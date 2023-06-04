@@ -45,11 +45,18 @@ export default function Hoje({ calcularProgresso, data, setData }) {
   }, [])
 
   const Subtitulo = ({ progresso }) => {
-    if (progresso == 0) {
-      return <span>Nenhum hábito concluído ainda</span>
-    } else {
-      return <span>{progresso}% dos hábitos concluídos</span>
-    }
+    const isProgressoZero = progresso == 0
+
+    return (
+      <span
+        className={isProgressoZero ? '' : 'concluido'}
+        style={{ color: isProgressoZero ? '#666666' : '#8FC549' }}
+      >
+        {isProgressoZero
+          ? 'Nenhum hábito concluído ainda'
+          : `${progresso}% dos hábitos concluídos`}
+      </span>
+    )
   }
 
   function concluir(id, done) {
@@ -143,7 +150,6 @@ const Header = styled.div`
     font-size: 18px;
     margin-top: 8px;
     margin-bottom: 18px;
-
     color: #bababa;
   }
 `
