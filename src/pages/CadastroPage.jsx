@@ -61,6 +61,7 @@ export default function CadastroPage() {
         <Logo />
         <form onSubmit={cadastrar}>
           <Input
+            data-test="email-input"
             type={'email'}
             onChange={e => setEmail(e.target.value)}
             placeholder={'email'}
@@ -69,6 +70,7 @@ export default function CadastroPage() {
             disabled={isLoading}
           />
           <Input
+            data-test="password-input"
             type="password"
             onChange={e => setPassword(e.target.value)}
             placeholder="senha"
@@ -77,6 +79,7 @@ export default function CadastroPage() {
             disabled={isLoading}
           />
           <Input
+            data-test="user-name-input"
             type={'text'}
             onChange={e => setName(e.target.value)}
             placeholder={'nome'}
@@ -85,6 +88,7 @@ export default function CadastroPage() {
             disabled={isLoading}
           />
           <Input
+            data-test="user-image-input"
             type={'text'}
             onChange={e => setImage(e.target.value)}
             placeholder={'foto'}
@@ -92,9 +96,13 @@ export default function CadastroPage() {
             id={'fotoInput'}
             disabled={isLoading}
           />
-          <Button disabled={isLoading}>Cadastrar</Button>
+          <Button data-test="signup-btn" disabled={isLoading}>
+            Cadastrar
+          </Button>
         </form>
-        <FooterLink value={'/'}>Já tem uma conta? Faça login!</FooterLink>
+        <FooterLink data-test="login-link" value={'/'}>
+          Já tem uma conta? Faça login!
+        </FooterLink>
       </SCContainerSyle>
     </div>
   )

@@ -6,22 +6,13 @@ import MainFooter from '../components/MainFooter'
 import { SCContainerSyle, SCContainerHojeHabitos } from './styles/styles'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br'
 import { useContext } from 'react'
 import { ProgressoContext } from '../ProgressoContext'
 
-export default function Hoje() {
+export default function Hoje({ calcularProgresso, data, setData }) {
   const { progresso, atualizarProgresso } = useContext(ProgressoContext)
-  const [data, setData] = useState([])
-
-  const calcularProgresso = data => {
-    const totalHabitos = data.length
-    const habitosConcluidos = data.filter(item => item.done).length
-    const progressoAtualizado = (habitosConcluidos / totalHabitos) * 100
-    return progressoAtualizado.toFixed(0)
-  }
 
   dayjs.locale('pt-br')
 

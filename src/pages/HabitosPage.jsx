@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-export default function HabitosPage() {
+export default function HabitosPage({ calcularProgresso, data }) {
   const diasDaSemana = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
   const [valorInput, setValorInput] = useState('')
   const [exibe, setExibe] = useState(false)
@@ -146,8 +146,7 @@ export default function HabitosPage() {
       ) : (
         ''
       )}
-
-      <MainFooter />
+      <MainFooter calcularProgresso={() => calcularProgresso(data)} />
     </SCContainerHojeHabitos>
   )
 }

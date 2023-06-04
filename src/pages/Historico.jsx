@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import MainFooter from '../components/MainFooter'
 import { SCContainerHojeHabitos, SCContainerSyle } from './styles/styles'
 
-export default function Historico() {
+export default function Historico({ calcularProgresso, data, setData }) {
   return (
     <>
       <MainHeader />
@@ -14,7 +14,7 @@ export default function Historico() {
             <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
           </Header>
         </SCContainerHojeHabitos>
-        <MainFooter />
+        <MainFooter calcularProgresso={() => calcularProgresso(data)} />
       </SCContainerSyle>
     </>
   )

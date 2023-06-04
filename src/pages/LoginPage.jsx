@@ -48,6 +48,7 @@ export default function LoginPage() {
       <Logo />
       <form onSubmit={login}>
         <Input
+          data-test="email-input"
           type={'email'}
           onChange={e => setEmail(e.target.value)}
           placeholder={'email'}
@@ -56,6 +57,7 @@ export default function LoginPage() {
           disabled={isLoading}
         />
         <Input
+          data-test="password-input"
           type="password"
           onChange={e => setPassword(e.target.value)}
           placeholder="senha"
@@ -63,12 +65,18 @@ export default function LoginPage() {
           id={'senhaInput'}
           disabled={isLoading}
         />
-        <Button disabled={isLoading} isLoading={isLoading}>
+        <Button
+          disabled={isLoading}
+          isLoading={isLoading}
+          data-test="login-btn"
+        >
           Entrar
         </Button>
       </form>
       {/* <a href="">Não tem uma conta? Cadastre-se!</a> */}
-      <StyledLink value="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
+      <StyledLink data-test="signup-link" value="/cadastro">
+        Não tem uma conta? Cadastre-se!
+      </StyledLink>
     </SCContainerSyle>
   )
 }
