@@ -3,14 +3,16 @@ export default function DiasDaSemana({
   onClick,
   index,
   diasSelecionados,
-  diasHabito
+  diasHabito,
+  isInNewHabit
 }) {
   const isSelected = diasSelecionados && diasSelecionados.includes(index)
   const isHabitoDay = diasHabito && diasHabito.includes(index)
+  const shouldChangeColor = isSelected && !isInNewHabit
 
   return (
     <button
-      className={`${isSelected || isHabitoDay ? 'selected' : ''}`}
+      className={`${shouldChangeColor || isHabitoDay ? 'selected' : ''}`}
       onClick={onClick}
     >
       {dia}

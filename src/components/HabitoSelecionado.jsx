@@ -7,14 +7,15 @@ import SCCContainerBtnSemana from '../pages/styles/ContainerBtnSemana'
 export default function HabitoSelecionado({
   habito,
   diasDaSemana,
-  diasSelecionados
+  diasSelecionados,
+  onClick
 }) {
   return (
     <SCCampoHabitos>
       <SCContainer>
         <h2>{habito.name}</h2>
         <a href="#">
-          <img src={lixo} alt="" />
+          <img src={lixo} alt="" onClick={() => onClick(habito.id)} />
         </a>
       </SCContainer>
       <SCCContainerBtnSemana>
@@ -25,6 +26,7 @@ export default function HabitoSelecionado({
             index={index}
             diasSelecionados={diasSelecionados}
             diasHabito={habito.days}
+            isInNewHabit={true}
           />
         ))}
       </SCCContainerBtnSemana>

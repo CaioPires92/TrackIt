@@ -16,6 +16,15 @@ export default function HabitosPage() {
   const [habitos, setHabitos] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const TOKEN =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`
+    }
+  }
+
   function exibirInputHabito() {
     setExibe(true)
   }
@@ -28,23 +37,18 @@ export default function HabitosPage() {
     const URL =
       'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
-    const TOKEN =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
-
     const novoHabito = {
       name: valorInput,
       days: diasSelecionados
     }
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`
-      }
-    }
-
     axios
       .post(URL, novoHabito, config)
-      .then(response => console.log(response.data))
+      .then(response => {
+        console.log('Requisição POST realizada com sucesso')
+        window.location.reload()
+      })
+
       .catch(error => console.log(error.response))
   }
 
@@ -64,15 +68,6 @@ export default function HabitosPage() {
     const URL =
       'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
 
-    const TOKEN =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OTQyMCwiaWF0IjoxNjg1ODE3ODM2fQ.pnJIzSYlNn1JvfxVp-4WgONrhksfykzeDvSJY_aS8Kc'
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`
-      }
-    }
-
     axios
       .get(URL, config)
       .then(response => {
@@ -82,6 +77,26 @@ export default function HabitosPage() {
       })
       .catch(error => console.log(error.response))
   }, [])
+
+  function deletarHabito(id) {
+    const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`
+
+    const confirmDelete = window.confirm(
+      'Tem certeza que deseja deletar este hábito?'
+    )
+
+    if (confirmDelete) {
+      axios
+        .delete(URL, config)
+        .then(response => {
+          console.log('Requisição DELETE realizada com sucesso')
+          window.location.reload()
+        })
+        .catch(error => {
+          console.error('Ocorreu um erro ao enviar a requisição DELETE:', error)
+        })
+    }
+  }
 
   if (loading) {
     return <div>Carregando...</div>
@@ -115,13 +130,19 @@ export default function HabitosPage() {
           key={habito.id}
           diasDaSemana={diasDaSemana}
           diasSelecionados={diasSelecionados}
+          onClick={deletarHabito}
         />
       ))}
 
-      <Paragrafo>
-        Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-        começar a trackear!
-      </Paragrafo>
+      {habitos.length === 0 ? (
+        <Paragrafo>
+          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+          começar a trackear!
+        </Paragrafo>
+      ) : (
+        ''
+      )}
+
       <MainFooter />
     </SCContainerHojeHabitos>
   )
